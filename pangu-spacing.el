@@ -211,7 +211,7 @@ pangu-sapce-mode."
   :group 'pangu-spacing
   :global nil
   :init-value nil
-  :lighter "Ρ"
+  :lighter " Ρ"
   (make-variable-buffer-local 'post-command-hook)
   (save-restriction
     (widen)
