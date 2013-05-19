@@ -4,7 +4,7 @@
 
 ;; Author: coldnew <coldnew.tw@gmail.com>
 ;; Kyewords: converience
-;; Version: 0.2
+;; Version: 0.3
 ;; X-URL: http://github.com/coldnew/pangu-spacing
 
 ;; This file is free software: you can redistribute it and/or modify
@@ -75,6 +75,9 @@
 ;; Chinese by defaut, you should enable this option manually.
 ;;
 ;;      (setq pangu-spacing-real-insert-separtor t)
+;;
+;; If you enable this, space will be inserted before you save file.
+;;
 
 ;;; Code:
 
@@ -87,7 +90,8 @@
   :initialize 'custom-initialize-default)
 
 (defcustom pangu-spacing-real-insert-separtor nil
-  "Set t or nil to make space show only on overlay or insert in file."
+  "Set t or nil to make space show only on overlay or insert in file.
+When you set t here, the space will be insert when you save file."
   :group 'pangu-spacing
   :type 'boolean)
 
@@ -123,11 +127,10 @@
 
 ;;;; Functions
 
-(defmacro pangu-spacing-search-buffer (regexp func)
+(defmacro pangu-spacing-search-buffer (regexp start end func)
   "Helper macro to search buffer and do func according regexp for
 pangu-spacing-mode."
-  `(let* ((start (window-start (selected-window) ))
-          (end   (window-end   (selected-window) t)))
+  `(let ((start ,start) (end ,end))
      (save-excursion
        (goto-char start)
        (while (re-search-forward ,regexp end t) ,func))))
@@ -135,12 +138,13 @@ pangu-spacing-mode."
 (defmacro pangu-spacing-search-overlay (func regexp)
   "Helper macro to search and update overlay according func and regexp for
 pangu-sapce-mode."
-  `(pangu-spacing-search-buffer ,regexp
+  `(pangu-spacing-search-buffer ,regexp (window-start (selected-window))  (window-end (selected-window) t)
                                 (,func (match-beginning 1) (match-end 1))))
 
 (defun pangu-spacing-search-and-replace (match regexp)
   "Replace regexp with match in buffer."
-  (pangu-spacing-search-buffer regexp (replace-match match nil nil)))
+  (pangu-spacing-search-buffer regexp (point-min) (point-max)
+			       (replace-match match nil nil)))
 
 (defun pangu-spacing-overlay-p (ov)
   "Determine whether overlay OV was created by space-between."
@@ -162,7 +166,7 @@ pangu-sapce-mode."
   (pangu-spacing-search-overlay pangu-spacing-delete-overlay
                                 pangu-spacing-chinese-after-english-regexp-exclude))
 
-(defun pangu-spacing-check-buffer ()
+(defun pangu-spacing-modify-buffer ()
   "Real insert separator between English words and Chinese charactors in buffer."
   (pangu-spacing-search-and-replace "\\1 \\2"
                                     pangu-spacing-chinese-before-english-regexp)
@@ -176,7 +180,9 @@ pangu-sapce-mode."
 
   (pangu-spacing-search-and-replace "\\1\\2"
                                     (replace-regexp-in-string "\\\\)\\\\(" "\\\\) \\\\("
-                                                              pangu-spacing-chinese-after-english-regexp-exclude)))
+                                                              pangu-spacing-chinese-after-english-regexp-exclude))
+  ;; nil must be returned to allow use in write file hooks
+  nil)
 
 (defun pangu-spacing-region-has-pangu-spacing-overlays (beg end)
   "Check if region specified by BEG and END has overlay.
@@ -209,9 +215,7 @@ pangu-sapce-mode."
   (pangu-spacing-delete-overlay (point-min) (point-max)))
 
 (defun turn-on-pangu-spacing (beg end)
-  (if pangu-spacing-real-insert-separtor
-      (pangu-spacing-check-buffer)
-    (pangu-spacing-check-overlay)))
+    (pangu-spacing-check-overlay))
 
 ;;;###autoload
 (define-minor-mode pangu-spacing-mode
@@ -225,9 +229,12 @@ pangu-sapce-mode."
     (save-restriction
       (widen)
       (if pangu-spacing-mode
-	  (jit-lock-register 'turn-on-pangu-spacing)
+	  (progn
+	    (jit-lock-register 'turn-on-pangu-spacing)
+	    (add-hook 'local-write-file-hooks 'pangu-spacing-modify-buffer))
 	(progn
 	  (jit-lock-unregister 'turn-on-pangu-spacing)
+	  (remove-hook 'local-write-file-hooks 'pangu-spacing-modify-buffer)
 	  (pangu-spacing-delete-all-overlays)))))
   pangu-spacing-mode)
 
