@@ -1,11 +1,11 @@
 ;;; pangu-spacing.el --- minor-mode to add space between Chinese and English characters.
 
-;; Copyright (C) 2013 coldnew.
+;; Copyright (C) 2013 Yen-Chin, Lee.
 
-;; Author: Yen-Chin, Lee <coldnew.tw@gmail.com>
-;; Kyewords:
+;; Author: coldnew <coldnew.tw@gmail.com>
+;; Kyewords: converience
 ;; Version: 0.1
-;; X-URL:
+;; X-URL: http://github.com/coldnew/pangu-spacing
 
 ;; This file is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
