@@ -117,8 +117,6 @@
       (group-n 2 (in "[。，！？；：「」（）、]")))
   "Excluded regexp to find Chinese character after English character.")
 
-
-
 ;;;; Functions
 
 (defmacro pangu-spacing-search-buffer (regexp func)
@@ -206,17 +204,6 @@ pangu-sapce-mode."
 (defun pangu-spacing-delete-all-overlays ()
   "Delete all pangu-spacing-overlays in BUFFER."
   (pangu-spacing-delete-overlay (point-min) (point-max)))
-
-(defun pangu-spacing-start ()
-  (if pangu-spacing-real-insert-separtor
-      (pangu-spacing-start-timer 'pangu-spacing-check-buffer)
-    (pangu-spacing-start-timer 'pangu-spacing-check-overlay)))
-
-(defun pangu-spacing-stop ()
-  (pangu-spacing-kill-timer)
-  (if pangu-spacing-real-insert-separtor
-      nil
-    (pangu-spacing-delete-all-overlays)))
 
 ;;;###autoload
 (define-minor-mode pangu-spacing-mode
