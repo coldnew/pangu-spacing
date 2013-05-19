@@ -9,7 +9,7 @@ and English characters.
 
 Take following sentance for example:
 
-     你好，我是 coldnew，我喜歡使用 emacs。
+     你好，我是coldnew，我喜歡使用emacs。
 
 After you use pangu-spacing-mdoe, you will see
 
@@ -25,7 +25,7 @@ full-width and half-width characters.
 pangu-spacing-mode 是一個可以自動幫你將中文與英文之間加上`空白`作為分
 隔的 minor-mode, 他的名稱來自於 paranoid-auto-spacing 上的 README。
 
-     引述自 paranoid-auto-spacing README[1]
+     引述自 paranoid-auto-spacing README [1]
 
      如果你跟我一樣，每次看到網頁上的中文字和英文、數字、符號擠在一塊，就會
      坐立難安，忍不住想在它們之間加個空格。這個外掛（支援 Chrome 和 Firefox）
@@ -39,7 +39,7 @@ pangu-spacing-mode 是一個可以自動幫你將中文與英文之間加上`空
 
      與大家共勉之。ori test
 
-     [1]https://github.com/gibuloto/paranoid-auto-spacing
+     [1] https://github.com/gibuloto/paranoid-auto-spacing
 
 ### Installation
 
