@@ -1,4 +1,4 @@
-;;; pangu-spacing.el --- minor-mode to add space between Chinese and English characters.
+;;; pangu-spacing.el --- Minor-mode to add space between Chinese and English characters.
 
 ;; Copyright (C) 2013 Yen-Chin, Lee.
 
@@ -233,4 +233,4 @@ pangu-sapce-mode."
     (pangu-spacing-stop)))
 
 (provide 'pangu-spacing)
-;; pangu-spacing.el ends here
+;;; pangu-spacing.el ends here
