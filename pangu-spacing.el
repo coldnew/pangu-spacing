@@ -144,7 +144,7 @@ pangu-sapce-mode."
 (defun pangu-spacing-search-and-replace (match regexp)
   "Replace regexp with match in buffer."
   (pangu-spacing-search-buffer regexp (point-min) (point-max)
-			       (replace-match match nil nil)))
+                               (replace-match match nil nil)))
 
 (defun pangu-spacing-overlay-p (ov)
   "Determine whether overlay OV was created by space-between."
@@ -168,19 +168,20 @@ pangu-sapce-mode."
 
 (defun pangu-spacing-modify-buffer ()
   "Real insert separator between English words and Chinese charactors in buffer."
-  (pangu-spacing-search-and-replace "\\1 \\2"
-                                    pangu-spacing-chinese-before-english-regexp)
+  (when pangu-spacing-real-insert-separtor
+    (pangu-spacing-search-and-replace "\\1 \\2"
+                                      pangu-spacing-chinese-before-english-regexp)
 
-  (pangu-spacing-search-and-replace "\\1 \\2"
-                                    pangu-spacing-chinese-after-english-regexp)
+    (pangu-spacing-search-and-replace "\\1 \\2"
+                                      pangu-spacing-chinese-after-english-regexp)
 
-  (pangu-spacing-search-and-replace "\\1\\2"
-                                    (replace-regexp-in-string "\\\\)\\\\(" "\\\\) \\\\("
-                                                              pangu-spacing-chinese-before-english-regexp-exclude))
+    (pangu-spacing-search-and-replace "\\1\\2"
+                                      (replace-regexp-in-string "\\\\)\\\\(" "\\\\) \\\\("
+                                                                pangu-spacing-chinese-before-english-regexp-exclude))
 
-  (pangu-spacing-search-and-replace "\\1\\2"
-                                    (replace-regexp-in-string "\\\\)\\\\(" "\\\\) \\\\("
-                                                              pangu-spacing-chinese-after-english-regexp-exclude))
+    (pangu-spacing-search-and-replace "\\1\\2"
+                                      (replace-regexp-in-string "\\\\)\\\\(" "\\\\) \\\\("
+                                                                pangu-spacing-chinese-after-english-regexp-exclude)))
   ;; nil must be returned to allow use in write file hooks
   nil)
 
@@ -215,7 +216,7 @@ pangu-sapce-mode."
   (pangu-spacing-delete-overlay (point-min) (point-max)))
 
 (defun turn-on-pangu-spacing (beg end)
-    (pangu-spacing-check-overlay))
+  (pangu-spacing-check-overlay))
 
 ;;;###autoload
 (define-minor-mode pangu-spacing-mode
@@ -229,13 +230,13 @@ pangu-sapce-mode."
     (save-restriction
       (widen)
       (if pangu-spacing-mode
-	  (progn
-	    (jit-lock-register 'turn-on-pangu-spacing)
-	    (add-hook 'local-write-file-hooks 'pangu-spacing-modify-buffer))
-	(progn
-	  (jit-lock-unregister 'turn-on-pangu-spacing)
-	  (remove-hook 'local-write-file-hooks 'pangu-spacing-modify-buffer)
-	  (pangu-spacing-delete-all-overlays)))))
+          (progn
+            (jit-lock-register 'turn-on-pangu-spacing)
+            (add-hook 'local-write-file-hooks 'pangu-spacing-modify-buffer))
+        (progn
+          (jit-lock-unregister 'turn-on-pangu-spacing)
+          (remove-hook 'local-write-file-hooks 'pangu-spacing-modify-buffer)
+          (pangu-spacing-delete-all-overlays)))))
   pangu-spacing-mode)
 
 ;;;###autoload
