@@ -232,9 +232,11 @@ pangu-sapce-mode."
       (if pangu-spacing-mode
           (progn
             (jit-lock-register 'turn-on-pangu-spacing)
+            (add-hook 'find-file-hook 'turn-on-pangu-spacing)
             (add-hook 'local-write-file-hooks 'pangu-spacing-modify-buffer))
         (progn
           (jit-lock-unregister 'turn-on-pangu-spacing)
+	  (remove-hook 'find-file-hook 'turn-on-pangu-spacing)
           (remove-hook 'local-write-file-hooks 'pangu-spacing-modify-buffer)
           (pangu-spacing-delete-all-overlays)))))
   pangu-spacing-mode)
