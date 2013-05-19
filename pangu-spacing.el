@@ -4,7 +4,7 @@
 
 ;; Author: coldnew <coldnew.tw@gmail.com>
 ;; Kyewords: converience
-;; Version: 0.1
+;; Version: 0.2
 ;; X-URL: http://github.com/coldnew/pangu-spacing
 
 ;; This file is free software: you can redistribute it and/or modify
