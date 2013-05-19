@@ -95,6 +95,10 @@
   "Face for pangu-spacing-mode separator."
   :group 'pangu-spacing)
 
+(defvar pangu-spacing-inhibit-mode-alist
+  '(eshell-mode shell-mode term-mode)
+  "Inhibit mode alist for pangu-spacing-mode.")
+
 ;;;; Local variables
 
 (defvar pangu-spacing-chinese-before-english-regexp
@@ -212,6 +216,8 @@ pangu-sapce-mode."
   :global nil
   :init-value nil
   :lighter " Ρ"
+  (unless (or (member major-mode pangu-spacing-inhibit-mode-alist)
+	      (minibufferp (current-buffer)))
   (make-variable-buffer-local 'post-command-hook)
   (save-restriction
     (widen)
@@ -224,7 +230,7 @@ pangu-sapce-mode."
                                             'pangu-spacing-check-buffer
                                           'pangu-spacing-check-overlay))
         (pangu-spacing-delete-all-overlays))))
-  pangu-spacing-mode)
+  pangu-spacing-mode))
 
 ;;;###autoload
 (define-globalized-minor-mode global-pangu-spacing-mode
