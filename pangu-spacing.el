@@ -74,7 +74,7 @@
 ;; pangu-spacing-mode do not really insert space between English and
 ;; Chinese by defaut, you should enable this option manually.
 ;;
-;;      (set pangu-spacing-real-insert-separtor t)
+;;      (setq pangu-spacing-real-insert-separtor t)
 
 ;;; Code:
 
@@ -212,16 +212,18 @@ pangu-sapce-mode."
   :global nil
   :init-value nil
   :lighter "Ρ"
-  (make-local-variable 'post-command-hook)
-  (if pangu-spacing-mode
-      (add-hook 'post-command-hook (if pangu-spacing-real-insert-separtor
-                                       'pangu-spacing-check-buffer
-                                     'pangu-spacing-check-overlay))
-    (progn
-      (remove-hook 'post-command-hook (if pangu-spacing-real-insert-separtor
-                                          'pangu-spacing-check-buffer
-                                        'pangu-spacing-check-overlay))
-      (pangu-spacing-delete-all-overlays)))
+  (make-variable-buffer-local 'post-command-hook)
+  (save-restriction
+    (widen)
+    (if pangu-spacing-mode
+        (add-hook 'post-command-hook (if pangu-spacing-real-insert-separtor
+                                         'pangu-spacing-check-buffer
+                                       'pangu-spacing-check-overlay))
+      (progn
+        (remove-hook 'post-command-hook (if pangu-spacing-real-insert-separtor
+                                            'pangu-spacing-check-buffer
+                                          'pangu-spacing-check-overlay))
+        (pangu-spacing-delete-all-overlays))))
   pangu-spacing-mode)
 
 ;;;###autoload

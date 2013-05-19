@@ -56,7 +56,7 @@ In your .emacs
 pangu-spacing-mode do not really insert space between English and
 Chinese by defaut, you should enable this option manually.
 
-     (set pangu-spacing-real-insert-separtor t)
+     (setq pangu-spacing-real-insert-separtor t)
 
 ### Function Documentation
 
