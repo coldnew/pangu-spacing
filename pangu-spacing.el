@@ -126,8 +126,8 @@
 (defmacro pangu-spacing-search-buffer (regexp func)
   "Helper macro to search buffer and do func according regexp for
 pangu-spacing-mode."
-  `(let* ((start (point-min))
-          (end (point-max)))
+  `(let* ((start (window-start (selected-window) ))
+          (end   (window-end   (selected-window) t)))
      (save-excursion
        (goto-char start)
        (while (re-search-forward ,regexp end t) ,func))))
@@ -208,10 +208,10 @@ pangu-sapce-mode."
   "Delete all pangu-spacing-overlays in BUFFER."
   (pangu-spacing-delete-overlay (point-min) (point-max)))
 
-(defun turn-on-pangu-spacing ()
+(defun turn-on-pangu-spacing (beg end)
   (if pangu-spacing-real-insert-separtor
-      (pangu-spacing-check-buffer) (pangu-spacing-check-overlay))
-  )
+      (pangu-spacing-check-buffer)
+    (pangu-spacing-check-overlay)))
 
 ;;;###autoload
 (define-minor-mode pangu-spacing-mode
@@ -220,17 +220,16 @@ pangu-sapce-mode."
   :global nil
   :init-value nil
   :lighter " Ρ"
-  (make-variable-buffer-local 'post-command-hook)
   (unless (or (member major-mode pangu-spacing-inhibit-mode-alist)
               (minibufferp (current-buffer)))
     (save-restriction
       (widen)
       (if pangu-spacing-mode
-          (add-hook 'post-command-hook 'turn-on-pangu-spacing)
-        (progn
-          (remove-hook 'post-command-hook 'turn-on-pangu-spacing)
-          (pangu-spacing-delete-all-overlays)))))
-    pangu-spacing-mode)
+	  (jit-lock-register 'turn-on-pangu-spacing)
+	(progn
+	  (jit-lock-unregister 'turn-on-pangu-spacing)
+	  (pangu-spacing-delete-all-overlays)))))
+  pangu-spacing-mode)
 
 ;;;###autoload
 (define-globalized-minor-mode global-pangu-spacing-mode
