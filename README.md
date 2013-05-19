@@ -51,7 +51,7 @@ If you have `melpa` and `emacs24` installed, simply type:
 In your .emacs
 
      (require 'pangu-spacing)
-     (pangu-spacing-mode 1)
+     (global-pangu-spacing-mode 1)
 
 pangu-spacing-mode do not really insert space between English and
 Chinese by defaut, you should enable this option manually.

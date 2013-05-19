@@ -69,7 +69,7 @@
 ;; In your .emacs
 ;;
 ;;      (require 'pangu-spacing)
-;;      (pangu-spacing-mode 1)
+;;      (global-pangu-spacing-mode 1)
 ;;
 ;; pangu-spacing-mode do not really insert space between English and
 ;; Chinese by defaut, you should enable this option manually.
@@ -117,7 +117,7 @@
       (group-n 2 (in "[。，！？；：「」（）、]")))
   "Excluded regexp to find Chinese character after English character.")
 
-(defvar pangu-spacing-timer nil)
+
 
 ;;;; Functions
 
@@ -133,7 +133,7 @@ pangu-spacing-mode."
   "Helper macro to search and update overlay according func and regexp for
 pangu-sapce-mode."
   `(pangu-spacing-search-buffer ,regexp
-                              (,func (match-beginning 1) (match-end 1))))
+                                (,func (match-beginning 1) (match-end 1))))
 
 (defun pangu-spacing-search-and-replace (match regexp)
   "Replace regexp with match in buffer."
@@ -143,44 +143,39 @@ pangu-sapce-mode."
   "Determine whether overlay OV was created by space-between."
   (and (overlayp ov) (overlay-get ov 'pangu-spacing-overlay)))
 
-(defmacro pangu-spacing-start-timer (func)
-  `(setq pangu-spacing-timer (run-with-timer 1 1 ,func)))
-
-(defun pangu-spacing-kill-timer ()
-  (cancel-timer pangu-spacing-timer))
 
 (defun pangu-spacing-check-overlay ()
   "Insert a space between English words and Chinese charactors in overlay."
   (pangu-spacing-delete-all-overlays)
   (save-excursion
     (pangu-spacing-search-overlay pangu-spacing-make-overlay
-                                pangu-spacing-chinese-before-english-regexp)
+                                  pangu-spacing-chinese-before-english-regexp)
 
     (pangu-spacing-search-overlay pangu-spacing-make-overlay
-                                pangu-spacing-chinese-after-english-regexp)
+                                  pangu-spacing-chinese-after-english-regexp)
 
     (pangu-spacing-search-overlay pangu-spacing-delete-overlay
-                                pangu-spacing-chinese-before-english-regexp-exclude)
+                                  pangu-spacing-chinese-before-english-regexp-exclude)
 
     (pangu-spacing-search-overlay pangu-spacing-delete-overlay
-                                pangu-spacing-chinese-after-english-regexp-exclude)))
+                                  pangu-spacing-chinese-after-english-regexp-exclude)))
 
 (defun pangu-spacing-check-buffer ()
   "Real insert separator between English words and Chinese charactors in buffer."
   (save-excursion
     (pangu-spacing-search-and-replace "\\1 \\2"
-                                    pangu-spacing-chinese-before-english-regexp)
+                                      pangu-spacing-chinese-before-english-regexp)
 
     (pangu-spacing-search-and-replace "\\1 \\2"
-                                    pangu-spacing-chinese-after-english-regexp)
+                                      pangu-spacing-chinese-after-english-regexp)
 
     (pangu-spacing-search-and-replace "\\1\\2"
-                                    (replace-regexp-in-string "\\\\)\\\\(" "\\\\) \\\\("
-                                                              pangu-spacing-chinese-before-english-regexp-exclude))
+                                      (replace-regexp-in-string "\\\\)\\\\(" "\\\\) \\\\("
+                                                                pangu-spacing-chinese-before-english-regexp-exclude))
 
     (pangu-spacing-search-and-replace "\\1\\2"
-                                    (replace-regexp-in-string "\\\\)\\\\(" "\\\\) \\\\("
-                                                              pangu-spacing-chinese-after-english-regexp-exclude))))
+                                      (replace-regexp-in-string "\\\\)\\\\(" "\\\\) \\\\("
+                                                                pangu-spacing-chinese-after-english-regexp-exclude))))
 
 (defun pangu-spacing-region-has-pangu-spacing-overlays (beg end)
   "Check if region specified by BEG and END has overlay.
@@ -227,10 +222,25 @@ pangu-sapce-mode."
 (define-minor-mode pangu-spacing-mode
   "Toggle pangu-spacing-mode"
   :group 'pangu-spacing
+  :global nil
+  :init-value nil
   :lighter "Ρ"
+  (make-local-variable 'post-command-hook)
   (if pangu-spacing-mode
-      (pangu-spacing-start)
-    (pangu-spacing-stop)))
+      (add-hook 'post-command-hook (if pangu-spacing-real-insert-separtor
+                                       'pangu-spacing-check-buffer
+                                     'pangu-spacing-check-overlay))
+    (progn
+      (remove-hook 'post-command-hook (if pangu-spacing-real-insert-separtor
+                                          'pangu-spacing-check-buffer
+                                        'pangu-spacing-check-overlay))
+      (pangu-spacing-delete-all-overlays)))
+  pangu-spacing-mode)
+
+;;;###autoload
+(define-globalized-minor-mode global-pangu-spacing-mode
+  pangu-spacing-mode pangu-spacing-mode)
+
 
 (provide 'pangu-spacing)
 ;; pangu-spacing.el ends here
