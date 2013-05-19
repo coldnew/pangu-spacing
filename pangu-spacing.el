@@ -229,8 +229,8 @@ pangu-sapce-mode."
           (add-hook 'post-command-hook 'turn-on-pangu-spacing)
         (progn
           (remove-hook 'post-command-hook 'turn-on-pangu-spacing)
-          (pangu-spacing-delete-all-overlays))))
-    pangu-spacing-mode))
+          (pangu-spacing-delete-all-overlays)))))
+    pangu-spacing-mode)
 
 ;;;###autoload
 (define-globalized-minor-mode global-pangu-spacing-mode
