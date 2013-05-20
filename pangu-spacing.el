@@ -138,7 +138,8 @@ pangu-spacing-mode."
 (defmacro pangu-spacing-search-overlay (func regexp)
   "Helper macro to search and update overlay according func and regexp for
 pangu-sapce-mode."
-  `(pangu-spacing-search-buffer ,regexp (window-start (selected-window))  (window-end (selected-window) t)
+  `(pangu-spacing-search-buffer ,regexp ;;(window-start (selected-window))  (window-end (selected-window) t)
+				(point-min) (point-max)
                                 (,func (match-beginning 1) (match-end 1))))
 
 (defun pangu-spacing-search-and-replace (match regexp)
@@ -232,11 +233,9 @@ pangu-sapce-mode."
       (if pangu-spacing-mode
           (progn
             (jit-lock-register 'turn-on-pangu-spacing)
-            (add-hook 'find-file-hook 'pangu-spacing-check-overlay)
             (add-hook 'local-write-file-hooks 'pangu-spacing-modify-buffer))
         (progn
           (jit-lock-unregister 'turn-on-pangu-spacing)
-	  (remove-hook 'find-file-hook 'pangu-spacing-check-overlay)
           (remove-hook 'local-write-file-hooks 'pangu-spacing-modify-buffer)
           (pangu-spacing-delete-all-overlays)))))
   pangu-spacing-mode)
