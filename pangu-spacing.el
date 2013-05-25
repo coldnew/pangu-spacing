@@ -1,4 +1,4 @@
-;;; pangu-spacing.el --- minor-mode to add space between Chinese and English characters.
+;;; pangu-spacing.el --- Minor-mode to add space between Chinese and English characters.
 
 ;; Copyright (C) 2013 Yen-Chin, Lee.
 
@@ -116,13 +116,13 @@ When you set t here, the space will be insert when you save file."
   "Regexp to find Chinese character after English character.")
 
 (defvar pangu-spacing-chinese-before-english-regexp-exclude
-  (rx (group-n 1 (in "[。，！？；：「」（）、]"))
+  (rx (group-n 1 (in "。，！？；：「」（）、"))
       (group-n 2 (in "a-zA-Z0-9")))
   "Excluded regexp to find Chinese character before English character.")
 
 (defvar pangu-spacing-chinese-after-english-regexp-exclude
   (rx (group-n 1 (in "a-zA-Z0-9"))
-      (group-n 2 (in "[。，！？；：「」（）、]")))
+      (group-n 2 (in "。，！？；：「」（）、")))
   "Excluded regexp to find Chinese character after English character.")
 
 ;;;; Functions
@@ -138,7 +138,8 @@ pangu-spacing-mode."
 (defmacro pangu-spacing-search-overlay (func regexp)
   "Helper macro to search and update overlay according func and regexp for
 pangu-sapce-mode."
-  `(pangu-spacing-search-buffer ,regexp (window-start (selected-window))  (window-end (selected-window) t)
+  `(pangu-spacing-search-buffer ,regexp ;;(window-start (selected-window))  (window-end (selected-window) t)
+				(point-min) (point-max)
                                 (,func (match-beginning 1) (match-end 1))))
 
 (defun pangu-spacing-search-and-replace (match regexp)
@@ -232,11 +233,9 @@ pangu-sapce-mode."
       (if pangu-spacing-mode
           (progn
             (jit-lock-register 'turn-on-pangu-spacing)
-            (add-hook 'find-file-hook 'pangu-spacing-check-overlay)
             (add-hook 'local-write-file-hooks 'pangu-spacing-modify-buffer))
         (progn
           (jit-lock-unregister 'turn-on-pangu-spacing)
-	  (remove-hook 'find-file-hook 'pangu-spacing-check-overlay)
           (remove-hook 'local-write-file-hooks 'pangu-spacing-modify-buffer)
           (pangu-spacing-delete-all-overlays)))))
   pangu-spacing-mode)
@@ -247,4 +246,4 @@ pangu-sapce-mode."
 
 
 (provide 'pangu-spacing)
-;; pangu-spacing.el ends here
+;;; pangu-spacing.el ends here
