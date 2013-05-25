@@ -20,11 +20,13 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
 
-;;; Commentary:
 
-;;; Commentary (English):
+;;; Commentary:
+;;; Screenshot:
 ;; ![Screenshot](https://github.com/coldnew/pangu-spacing/raw/master/screenshot/screenshot.gif)
 ;;
+
+;;; Commentary (English):
 ;; pangu-spacing-mode is an minor-mode to auto add space between Chinese
 ;; and English characters.
 

@@ -1,10 +1,11 @@
-## pangu-spacing.el – minor-mode to add space between Chinese and English characters.
+## pangu-spacing.el – Minor-mode to add space between Chinese and English characters.
+
+### Screenshot
+
+![Screenshot](https://github.com/coldnew/pangu-spacing/raw/master/screenshot/screenshot.gif)
 
 
 ### Commentary (English)
-
-
-![Screenshot](https://github.com/coldnew/pangu-spacing/raw/master/screenshot/screenshot.gif)
 
 pangu-spacing-mode is an minor-mode to auto add space between Chinese
 and English characters.
