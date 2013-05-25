@@ -4,6 +4,8 @@
 ### Commentary (English)
 
 
+![Screenshot](https://github.com/coldnew/pangu-spacing/raw/master/screenshot/screenshot.gif)
+
 pangu-spacing-mode is an minor-mode to auto add space between Chinese
 and English characters.
 
