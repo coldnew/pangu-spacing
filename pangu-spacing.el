@@ -119,13 +119,15 @@ When you set t here, the space will be insert when you save file."
   "Regexp to find Chinese character after English character.")
 
 (defvar pangu-spacing-chinese-before-english-regexp-exclude
-  (rx (group-n 1 (in "。，！？；：「」（）、"))
+  (rx (group-n 1 (or (in "。，！？；：「」（）、")
+		     (category greek-two-byte)))
       (group-n 2 (in "a-zA-Z0-9")))
   "Excluded regexp to find Chinese character before English character.")
 
 (defvar pangu-spacing-chinese-after-english-regexp-exclude
   (rx (group-n 1 (in "a-zA-Z0-9"))
-      (group-n 2 (in "。，！？；：「」（）、")))
+      (group-n 2 (or (in "。，！？；：「」（）、")
+		     (category greek-two-byte))))
   "Excluded regexp to find Chinese character after English character.")
 
 ;;;; Functions
