@@ -63,6 +63,10 @@
 
 ;;      [1] https://github.com/gibuloto/paranoid-auto-spacing
 
+;;
+;; 作者部落格: http://coldnew.github.io/blog/2013/05/20_5cbb7.html
+;;
+
 ;;; Installation:
 
 ;; If you have `melpa` and `emacs24` installed, simply type:

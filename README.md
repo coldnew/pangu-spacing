@@ -46,6 +46,10 @@ pangu-spacing-mode 是一個可以自動幫你將中文與英文之間加上`空
 
      [1] https://github.com/gibuloto/paranoid-auto-spacing
 
+
+作者部落格: http://coldnew.github.io/blog/2013/05/20_5cbb7.html
+
+
 ### Installation
 
 
