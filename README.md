@@ -1,5 +1,7 @@
-## pangu-spacing.el – Minor-mode to add space between Chinese and English characters.
+## pangu-spacing.el
+*Minor-mode to add space between Chinese and English characters.*
 
+---
 ### Screenshot
 
 ![Screenshot](https://github.com/coldnew/pangu-spacing/raw/master/screenshot/screenshot.gif)
@@ -40,7 +42,7 @@ pangu-spacing-mode 是一個可以自動幫你將中文與英文之間加上`空
      走得很辛苦，有七成的比例會在 34 歲的時候跟自己不愛的人結婚，而其餘三成
      的人最後只能把遺產留給自己的貓。畢竟愛情跟書寫都需要適時地留白。
 
-     與大家共勉之。ori test
+     與大家共勉之。
 
      [1] https://github.com/gibuloto/paranoid-auto-spacing
 
