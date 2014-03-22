@@ -9,8 +9,9 @@
 
 ### Commentary (English)
 
-pangu-spacing-mode is an minor-mode to auto add space between Chinese
-and English characters.
+pangu-spacing-mode is an minor-mode to auto add `space` between Chinese
+and English characters. Note that these white-space characters are not really
+added to the contents, it just like to do so.
 
 Take following sentance for example:
 
@@ -20,9 +21,35 @@ After you use pangu-spacing-mdoe, you will see
 
      你好，我是 coldnew，我喜歡使用 emacs。
 
-This space between English and Chinese characters is called
-pangu-spacing by sinologist. Since it separate the chaos between
-full-width and half-width characters.
+But the text doesn't be modify by this mode, after disable
+pangu-spacing-mode or use other text eidtor to open the file, you
+will still see:
+
+     你好，我是coldnew，我喜歡使用emacs。
+
+pangu-spacing is named from paranoid-auto-spacing's README.
+
+     Translation of paranoid-auto-spacing's README [1]
+
+     If you are the same as me, who feel quiet ill when see
+     Chinese, English and digits characters squeezed together and
+     want to add whitespace to separate them. This plugin (support
+     Chrome and Firefox) is what you need when surfing the
+     internet, it will auto add white-space between Chinese,
+     half-width English, digits and symbols.
+
+     These spaces between English and Chinese characters are called
+     pangu-spacing by sinologist, since it separate the cobnfusion
+     between full-width and half-width characters.
+     Studies showed those who dislike to add whitespace between typing
+     English and Chinese characters also have relationship problem.
+     Almost 70 percent of them will get married to the one they
+     didn't love, the rest only can left the heritage to their cat.
+     After all, love and writing need some space in good time.
+
+     Let's go for it.
+
+     [1] https://github.com/gibuloto/paranoid-auto-spacing
 
 ### Commentary (Chinese)
 
@@ -47,7 +74,9 @@ pangu-spacing-mode 是一個可以自動幫你將中文與英文之間加上`空
      [1] https://github.com/gibuloto/paranoid-auto-spacing
 
 
-作者部落格: http://coldnew.github.io/blog/2013/05/20_5cbb7.html
+更完整的介紹，請見我的部若格:
+
+http://coldnew.github.io/blog/2013/05/20_5cbb7.html
 
 
 ### Installation
@@ -67,7 +96,15 @@ Chinese by defaut, you should enable this option manually.
 
      (setq pangu-spacing-real-insert-separtor t)
 
-If you enable this, space will be inserted before you save file.
+After you enable this, space will be inserted before you save file.
+
+If you only want to insert whitespace in some specific mode, but just add
+virtual space in other mode, you can use following code to achive
+this: (take org-mode as example)
+
+     (add-hook 'org-mode-hook
+               '(lambda ()
+                (set (make-local-variable 'pangu-spacing-real-insert-separtor) t)))
 
 
 ### Function Documentation
