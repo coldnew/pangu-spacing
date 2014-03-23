@@ -31,20 +31,20 @@ pangu-spacing is named from paranoid-auto-spacing's README.
 
      Translation of paranoid-auto-spacing's README [1]
 
-     If you are the same as me, who feel quiet ill when see
-     Chinese, English and digits characters squeezed together and
+     If you are the one who feel quiet ill when see Chinese,
+     English and digits characters squeezed together and
      want to add whitespace to separate them. This plugin (support
      Chrome and Firefox) is what you need when surfing the
-     internet, it will auto add white-space between Chinese,
-     half-width English, digits and symbols.
+     internet, it will add whitespace between Chinese,
+     half-width English, digits and symbols automatically.
 
      These spaces between English and Chinese characters are called
      pangu-spacing by sinologist, since it separate the cobnfusion
      between full-width and half-width characters.
-     Studies showed those who dislike to add whitespace between typing
+     Studies showed that who dislike to add whitespace between
      English and Chinese characters also have relationship problem.
      Almost 70 percent of them will get married to the one they
-     didn't love, the rest only can left the heritage to their cat.
+     don't love, the rest only can left the heritage to their cat.
      After all, love and writing need some space in good time.
 
      Let's go for it.
