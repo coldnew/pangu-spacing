@@ -63,7 +63,7 @@
 ;;      English and Chinese characters also have relationship problem.
 ;;      Almost 70 percent of them will get married to the one they
 ;;      don't love, the rest only can left the heritage to their cat.
-;;      After all, love and writing need some space in good time.
+;;      Indeed, love and writing need some space in good time.
 
 ;;      Let's go for it.
 
