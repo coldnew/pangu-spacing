@@ -154,26 +154,32 @@ When you set t here, the space will be insert when you save file."
 
 ;;;; Local variables
 
+;; NOTE:
+;; We intend to use `chinse-two-byte' here, since older version emacs has typo
+;; on this, see:
+;;
+;;   [Emacs-diffs] trunk r115873: Fix misspelling of 'chinese' in rx.
+;;
+;; Url: http://lists.gnu.org/archive/html/emacs-diffs/2014-01/msg00049.html
+
 (defvar pangu-spacing-chinese-before-english-regexp
-  (rx (group-n 1 (category chinese))
+  (rx (group-n 1 (category chinse-two-byte))
       (group-n 2 (in "a-zA-Z0-9")))
   "Regexp to find Chinese character before English character.")
 
 (defvar pangu-spacing-chinese-after-english-regexp
   (rx (group-n 1 (in "a-zA-Z0-9"))
-      (group-n 2 (category chinese)))
+      (group-n 2 (category chinse-two-byte)))
   "Regexp to find Chinese character after English character.")
 
 (defvar pangu-spacing-chinese-before-english-regexp-exclude
-  (rx (group-n 1 (or (in "。，！？；：「」（）、")
-                     (category greek-two-byte)))
+  (rx (group-n 1 (or (in "。，！？；：「」（）、")))
       (group-n 2 (in "a-zA-Z0-9")))
   "Excluded regexp to find Chinese character before English character.")
 
 (defvar pangu-spacing-chinese-after-english-regexp-exclude
   (rx (group-n 1 (in "a-zA-Z0-9"))
-      (group-n 2 (or (in "。，！？；：「」（）、")
-                     (category greek-two-byte))))
+      (group-n 2 (or (in "。，！？；：「」（）、"))))
   "Excluded regexp to find Chinese character after English character.")
 
 ;;;; Functions
