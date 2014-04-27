@@ -4,7 +4,7 @@
 
 ;; Author: coldnew <coldnew.tw@gmail.com>
 ;; Kyewords: converience
-;; Version: 0.3
+;; Version: 0.4
 ;; X-URL: http://github.com/coldnew/pangu-spacing
 
 ;; This file is free software: you can redistribute it and/or modify
@@ -155,8 +155,9 @@ When you set t here, the space will be insert when you save file."
 ;;;; Local variables
 
 ;; NOTE:
-;; We intend to use `chinse-two-byte' here, since older version emacs has typo
-;; on this, see:
+;; We use `chinse-two-byte' instead of `chinese-two-byte', since there
+;; are some typo in emacs version 21.1-24.3. For more information,
+;; see:
 ;;
 ;;   [Emacs-diffs] trunk r115873: Fix misspelling of 'chinese' in rx.
 ;;
