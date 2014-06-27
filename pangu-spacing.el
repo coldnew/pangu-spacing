@@ -102,6 +102,16 @@
 ;;
 ;;      M-x package-install pangu-spacing
 ;;
+
+;; For `cask' user, just add following lines in your `Cask' file
+;;
+;;      (source melpa)
+;;
+;;      (depends-on "pangu-spacing")
+;;
+
+;;; Configuration
+
 ;; In your .emacs
 ;;
 ;;      (require 'pangu-spacing)
