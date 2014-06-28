@@ -137,7 +137,8 @@
 
 (defgroup pangu-spacing nil
   "Add space between Chinese and English characters automatically."
-  :group 'convenience)
+  :group 'convenience
+  :link '(url-link :tag "Github" "https://github.com/coldnew/pangu-spacing"))
 
 ;;;; Custom Variables
 
