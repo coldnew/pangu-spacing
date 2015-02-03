@@ -2,10 +2,12 @@
 *Minor-mode to add space between Chinese and English characters.*
 
 ---
+[![MELPA](http://melpa.org/packages/pangu-spacing-badge.svg)](http://melpa.org/#/pangu-spacing)
+[![MELPA Stable](http://stable.melpa.org/packages/pangu-spacing-badge.svg)](http://stable.melpa.org/#/pangu-spacing)
+
 ### Screenshot
 
 ![Screenshot](https://github.com/coldnew/pangu-spacing/raw/master/screenshot/screenshot.gif)
-
 
 ### Commentary (English)
 
