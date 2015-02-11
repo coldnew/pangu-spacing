@@ -2,6 +2,7 @@
 *Minor-mode to add space between Chinese and English characters.*
 
 ---
+[![License GPL3](https://img.shields.io/badge/license-GPL_3-green.svg?dummy)](http://www.gnu.org/licenses/gpl-3.0.html)
 [![MELPA](http://melpa.org/packages/pangu-spacing-badge.svg)](http://melpa.org/#/pangu-spacing)
 [![MELPA Stable](http://stable.melpa.org/packages/pangu-spacing-badge.svg)](http://stable.melpa.org/#/pangu-spacing)
 
