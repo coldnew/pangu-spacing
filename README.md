@@ -57,8 +57,7 @@ pangu-spacing is named from paranoid-auto-spacing's README.
 ### Commentary (Chinese)
 
 
-pangu-spacing-mode 是一個可以自動幫你將中文與英文之間加上`空白`作為分
-隔的 minor-mode, 他的名稱來自於 paranoid-auto-spacing 上的 README。
+pangu-spacing-mode 是一個可以自動幫你將中文與英文之間加上`空白`作為分隔的 minor-mode, 他的名稱來自於 paranoid-auto-spacing 上的 README。
 
      引述自 paranoid-auto-spacing README [1]
 
