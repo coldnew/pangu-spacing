@@ -143,11 +143,11 @@ Determine whether overlay OV was created by space-between.
 
 #### `(pangu-spacing-check-overlay)`
 
-Insert a space between English words and Chinese charactors in overlay.
+Insert a space between English words and Chinese characters in overlay.
 
 #### `(pangu-spacing-modify-buffer)`
 
-Real insert separator between English words and Chinese charactors in buffer.
+Real insert separator between English words and Chinese characters in buffer.
 
 #### `(pangu-spacing-region-has-pangu-spacing-overlays BEG END)`
 
