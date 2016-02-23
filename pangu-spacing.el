@@ -336,4 +336,5 @@ It will really insert separator, no matter what
 (defun pangu-spacing--ans (str)
   )
 
+(provide 'pangu-spacing)
 ;;; pangu-spacing.el ends here
