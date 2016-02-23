@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/coldnew/pangu-spacing.png?label=ready&title=Ready)](https://waffle.io/coldnew/pangu-spacing)
 ## pangu-spacing.el
 *Minor-mode to add space between Chinese and English characters.*
 
