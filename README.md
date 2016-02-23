@@ -1,4 +1,3 @@
-[![Stories in Ready](https://badge.waffle.io/coldnew/pangu-spacing.png?label=ready&title=Ready)](https://waffle.io/coldnew/pangu-spacing)
 ## pangu-spacing.el
 *Minor-mode to add space between Chinese and English characters.*
 
@@ -6,6 +5,7 @@
 [![License GPLv3](https://img.shields.io/badge/license-GPL_v3-green.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
 [![MELPA](http://melpa.org/packages/pangu-spacing-badge.svg)](http://melpa.org/#/pangu-spacing)
 [![MELPA Stable](http://stable.melpa.org/packages/pangu-spacing-badge.svg)](http://stable.melpa.org/#/pangu-spacing)
+[![Stories in Ready](https://badge.waffle.io/coldnew/pangu-spacing.png?label=ready&title=Ready)](https://waffle.io/coldnew/pangu-spacing)
 
 ### Screenshot
 
