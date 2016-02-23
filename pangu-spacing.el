@@ -1,6 +1,6 @@
 ;;; pangu-spacing.el --- Minor-mode to add space between Chinese and English characters.
 
-;; Copyright (C) 2013, 2014 Yen-Chin, Lee.
+;; Copyright (C) 2013 - 2016 Yen-Chin, Lee.
 
 ;; Author: coldnew <coldnew.tw@gmail.com>
 ;; Kyewords: converience
