@@ -289,6 +289,15 @@ pangu-sapce-mode."
   (pangu-spacing-check-overlay))
 
 ;;;###autoload
+(defun pangu-spacing-space-current-buffer ()
+  "Space current buffer.
+It will really insert separator, no matter what
+`pangu-spacing-real-insert-separtor' is."
+  (interactive)
+  (let ((pangu-spacing-real-insert-separtor t))
+    (pangu-spacing-modify-buffer)))
+
+;;;###autoload
 (define-minor-mode pangu-spacing-mode
   "Toggle pangu-spacing-mode"
   :group 'pangu-spacing
