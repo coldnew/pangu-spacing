@@ -227,7 +227,8 @@ pangu-sapce-mode."
                                 pangu-spacing-make-overlay
                                 pangu-spacing-chinese-before-english-regexp)
 
-  (pangu-spacing-search-overlay pangu-spacing-make-overlay
+  (pangu-spacing-search-overlay beg end
+                                pangu-spacing-make-overlay
                                 pangu-spacing-chinese-after-english-regexp))
 
 (defun pangu-spacing-modify-buffer ()
