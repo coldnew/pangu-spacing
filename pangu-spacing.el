@@ -177,24 +177,17 @@ When you set t here, the space will be insert when you save file."
 ;; Url: http://lists.gnu.org/archive/html/emacs-diffs/2014-01/msg00049.html
 
 (defvar pangu-spacing-chinese-before-english-regexp
-  (rx (group-n 1 (category chinse-two-byte))
+  (rx (group-n 1 (and (category chinese-two-byte)
+                      (not (any "。，！？；：「」（）、"))))
       (group-n 2 (in "a-zA-Z0-9")))
   "Regexp to find Chinese character before English character.")
 
 (defvar pangu-spacing-chinese-after-english-regexp
+
   (rx (group-n 1 (in "a-zA-Z0-9"))
-      (group-n 2 (category chinse-two-byte)))
+      (group-n 2 (and (category chinese-two-byte)
+                      (not (any "。，！？；：「」（）、")))))
   "Regexp to find Chinese character after English character.")
-
-(defvar pangu-spacing-chinese-before-english-regexp-exclude
-  (rx (group-n 1 (or (in "。，！？；：「」（）、")))
-      (group-n 2 (in "a-zA-Z0-9")))
-  "Excluded regexp to find Chinese character before English character.")
-
-(defvar pangu-spacing-chinese-after-english-regexp-exclude
-  (rx (group-n 1 (in "a-zA-Z0-9"))
-      (group-n 2 (or (in "。，！？；：「」（）、"))))
-  "Excluded regexp to find Chinese character after English character.")
 
 ;;;; Functions
 
@@ -206,10 +199,10 @@ pangu-spacing-mode."
        (goto-char start)
        (while (re-search-forward ,regexp end t) ,func))))
 
-(defmacro pangu-spacing-search-overlay (func regexp)
+(defmacro pangu-spacing-search-overlay (beg end func regexp)
   "Helper macro to search and update overlay according func and regexp for
 pangu-sapce-mode."
-  `(pangu-spacing-search-buffer ,regexp (point-min) (point-max)
+  `(pangu-spacing-search-buffer ,regexp ,beg ,end
                                 (,func (match-beginning 1) (match-end 1))))
 
 (defun pangu-spacing-search-and-replace (match regexp)
@@ -221,20 +214,22 @@ pangu-sapce-mode."
   "Determine whether overlay OV was created by space-between."
   (and (overlayp ov) (overlay-get ov 'pangu-spacing-overlay)))
 
-(defun pangu-spacing-check-overlay ()
+
+(defun pangu-spacing-check-overlay (beg end)
   "Insert a space between English words and Chinese charactors in overlay."
-  (pangu-spacing-delete-all-overlays)
-  (pangu-spacing-search-overlay pangu-spacing-make-overlay
+  (setq beg (if beg
+                (max (- beg 1) (point-min))
+              (point-min))
+        end (or end (point-max)))
+  (pangu-spacing-delete-overlay beg end)
+  (setq end (min (1+ end) (point-max)))
+  (pangu-spacing-search-overlay beg end
+                                pangu-spacing-make-overlay
                                 pangu-spacing-chinese-before-english-regexp)
 
-  (pangu-spacing-search-overlay pangu-spacing-make-overlay
-                                pangu-spacing-chinese-after-english-regexp)
-
-  (pangu-spacing-search-overlay pangu-spacing-delete-overlay
-                                pangu-spacing-chinese-before-english-regexp-exclude)
-
-  (pangu-spacing-search-overlay pangu-spacing-delete-overlay
-                                pangu-spacing-chinese-after-english-regexp-exclude))
+  (pangu-spacing-search-overlay beg end
+                                pangu-spacing-make-overlay
+                                pangu-spacing-chinese-after-english-regexp))
 
 (defun pangu-spacing-modify-buffer ()
   "Real insert separator between English words and Chinese charactors in buffer."
@@ -243,15 +238,7 @@ pangu-sapce-mode."
                                       pangu-spacing-chinese-before-english-regexp)
 
     (pangu-spacing-search-and-replace "\\1 \\2"
-                                      pangu-spacing-chinese-after-english-regexp)
-
-    (pangu-spacing-search-and-replace "\\1\\2"
-                                      (replace-regexp-in-string "\\\\)\\\\(" "\\\\) \\\\("
-                                                                pangu-spacing-chinese-before-english-regexp-exclude))
-
-    (pangu-spacing-search-and-replace "\\1\\2"
-                                      (replace-regexp-in-string "\\\\)\\\\(" "\\\\) \\\\("
-                                                                pangu-spacing-chinese-after-english-regexp-exclude)))
+                                      pangu-spacing-chinese-after-english-regexp))
   ;; nil must be returned to allow use in write file hooks
   nil)
 
@@ -262,7 +249,9 @@ pangu-sapce-mode."
         (has-pangu-spacing-overlays nil))
     (while (consp ov)
       (when (pangu-spacing-overlay-p (car ov))
-        (setq has-pangu-spacing-overlays t))
+        (setq has-pangu-spacing-overlays t
+              ;; break the while loop
+              ov nil))
       (setq ov (cdr ov))
       has-pangu-spacing-overlays)))
 
@@ -281,12 +270,12 @@ pangu-sapce-mode."
     (when (pangu-spacing-overlay-p ov)
       (delete-overlay ov))))
 
-(defun pangu-spacing-delete-all-overlays ()
+(defun pangu-spacing-delete-all-overlays (&optional beg end)
   "Delete all pangu-spacing-overlays in BUFFER."
   (pangu-spacing-delete-overlay (point-min) (point-max)))
 
 (defun turn-on-pangu-spacing (beg end)
-  (pangu-spacing-check-overlay))
+  (pangu-spacing-check-overlay beg end))
 
 ;;;###autoload
 (defun pangu-spacing-space-current-buffer ()
