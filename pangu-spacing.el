@@ -176,18 +176,26 @@ When you set t here, the space will be insert when you save file."
 ;;
 ;; Url: http://lists.gnu.org/archive/html/emacs-diffs/2014-01/msg00049.html
 
-(defvar pangu-spacing-chinese-before-english-regexp
-  (rx (group-n 1 (and (category chinese-two-byte)
-                      (not (any "。，！？；：「」（）、"))))
-      (group-n 2 (in "a-zA-Z0-9")))
-  "Regexp to find Chinese character before English character.")
+(defvar pangu-spacing-include-regexp
+  (rx (or (and (or (group-n 3 (any "。，！？；：「」（）、"))
+                   (group-n 1 (category chinse-two-byte)))
+               (group-n 2 (in "a-zA-Z0-9")))
+          (and (group-n 1 (in "a-zA-Z0-9"))
+               (or (group-n 3 (any "。，！？；：「」（）、"))
+                   (group-n 2 (category chinse-two-byte))))))
+  "Regexp to find Chinese character before English character.
 
-(defvar pangu-spacing-chinese-after-english-regexp
-
-  (rx (group-n 1 (in "a-zA-Z0-9"))
-      (group-n 2 (and (category chinese-two-byte)
-                      (not (any "。，！？；：「」（）、")))))
-  "Regexp to find Chinese character after English character.")
+Group 1 contains the character before the potential pangu
+spacing, and group 2 the character after that. A space is needed
+when both group 1 and group 2 are non-nil. Group 3 exists as a
+workaround for excluded characters. Since rx does not support
+matching text that satisfy two regexp at the same time (we want
+to match all Chinese two byte characters, but not punctuations),
+we first try to match excluded characters, then the characters
+that need pangu-spacing. The excluded characters will be matched
+to group 3, and shortcut the matching for Chinese characters.
+Thus group 1 and group 2 will both be non nil when a pangu space
+is needed.")
 
 ;;;; Functions
 
@@ -197,18 +205,21 @@ pangu-spacing-mode."
   `(let ((start ,start) (end ,end))
      (save-excursion
        (goto-char start)
-       (while (re-search-forward ,regexp end t) ,func))))
+       (while (re-search-forward ,regexp end t)
+         (when (and (match-beginning 1)
+                    (match-beginning 2))
+           ,func)))))
 
 (defmacro pangu-spacing-search-overlay (beg end func regexp)
   "Helper macro to search and update overlay according func and regexp for
 pangu-sapce-mode."
   `(pangu-spacing-search-buffer ,regexp ,beg ,end
-                                (,func (match-beginning 1) (match-end 1))))
+                                  (,func (match-beginning 1) (match-end 1))))
 
 (defun pangu-spacing-search-and-replace (match regexp)
   "Replace regexp with match in buffer."
   (pangu-spacing-search-buffer regexp (point-min) (point-max)
-                               (replace-match match nil nil)))
+                                 (replace-match match nil nil)))
 
 (defun pangu-spacing-overlay-p (ov)
   "Determine whether overlay OV was created by space-between."
@@ -225,20 +236,14 @@ pangu-sapce-mode."
   (setq end (min (1+ end) (point-max)))
   (pangu-spacing-search-overlay beg end
                                 pangu-spacing-make-overlay
-                                pangu-spacing-chinese-before-english-regexp)
-
-  (pangu-spacing-search-overlay beg end
-                                pangu-spacing-make-overlay
-                                pangu-spacing-chinese-after-english-regexp))
+                                pangu-spacing-include-regexp)
+  )
 
 (defun pangu-spacing-modify-buffer ()
   "Real insert separator between English words and Chinese charactors in buffer."
   (when pangu-spacing-real-insert-separtor
     (pangu-spacing-search-and-replace "\\1 \\2"
-                                      pangu-spacing-chinese-before-english-regexp)
-
-    (pangu-spacing-search-and-replace "\\1 \\2"
-                                      pangu-spacing-chinese-after-english-regexp))
+                                      pangu-spacing-include-regexp))
   ;; nil must be returned to allow use in write file hooks
   nil)
 
