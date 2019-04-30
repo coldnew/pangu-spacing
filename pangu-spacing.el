@@ -137,6 +137,8 @@
 
 ;;; Code:
 
+(require 'dash)
+
 (defgroup pangu-spacing nil
   "Add space between Chinese and English characters automatically."
   :group 'convenience
@@ -214,12 +216,12 @@ pangu-spacing-mode."
   "Helper macro to search and update overlay according func and regexp for
 pangu-sapce-mode."
   `(pangu-spacing-search-buffer ,regexp ,beg ,end
-                                  (,func (match-beginning 1) (match-end 1))))
+                                (,func (match-beginning 1) (match-end 1))))
 
 (defun pangu-spacing-search-and-replace (match regexp)
   "Replace regexp with match in buffer."
   (pangu-spacing-search-buffer regexp (point-min) (point-max)
-                                 (replace-match match nil nil)))
+                               (replace-match match nil nil)))
 
 (defun pangu-spacing-overlay-p (ov)
   "Determine whether overlay OV was created by space-between."
@@ -230,7 +232,7 @@ pangu-sapce-mode."
   "Insert a space between English words and Chinese charactors in overlay."
   (setq beg (if beg
                 (max (- beg 1) (point-min))
-              (point-min))
+                (point-min))
         end (or end (point-max)))
   (pangu-spacing-delete-overlay beg end)
   (setq end (min (1+ end) (point-max)))
@@ -306,10 +308,10 @@ It will really insert separator, no matter what
           (progn
             (jit-lock-register 'turn-on-pangu-spacing)
             (add-hook 'local-write-file-hooks 'pangu-spacing-modify-buffer))
-        (progn
-          (jit-lock-unregister 'turn-on-pangu-spacing)
-          (remove-hook 'local-write-file-hooks 'pangu-spacing-modify-buffer)
-          (pangu-spacing-delete-all-overlays)))))
+          (progn
+            (jit-lock-unregister 'turn-on-pangu-spacing)
+            (remove-hook 'local-write-file-hooks 'pangu-spacing-modify-buffer)
+            (pangu-spacing-delete-all-overlays)))))
   pangu-spacing-mode)
 
 ;;;###autoload
@@ -319,21 +321,74 @@ It will really insert separator, no matter what
 ;;;; TODO: move to pangu.el ?
 
 
+;; all J below does not include \u30fb
+;; chinese, korean, japanese
+(defconst pangu-spacing--clk
+  (rx (and
+       (category japanese)
+       (category chinese)
+       (category korean)
+       ))
+  )
+
+;; alphabets, numbers, symbols
+;; ANS is short for Alphabets, Numbers, and Symbols.
+;;
+;; A includes A-Za-z\u0370-\u03ff
+;; N includes 0-9
+;; S includes `~!@#$%^&*()-_=+[]{}\|;:'",<.>/?
+;;
+;; some S below does not include all symbols
+;; https://github.com/vinta/pangu.js/blob/master/src/shared/core.js
+(defconst pangu-spacing--ans
+  (rx (and
+       (char (?A . ?Z))
+       (char (?a . ?z))
+       (char (#x0370 . #x3ff))
+       (char (?0 . ?9))
+       ))
+  )
+
 (defun pangu-spacing (str)
   "Performs a paranoid text spacing on str."
+  (->> str
+       pangu-spacing--quote
+       pangu-spacing--hash
+       )
+  )
+
+(defun pangu-spacing--cjk-quote (str)
+  (let (RE "([\u2e80-\u2eff\u2f00-\u2fdf\u3040-\u309f\u30a0-\u30fa\u30fc-\u30ff\u3100-\u312f\u3200-\u32ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff])([\"]"))
+  (s-replace-regexp RE "\\1 \\2" str)
+  )
+
+(pangu-spacing--cjk-quote "前面\"中文123漢字\"後面")
+
+(defun pangu-spacing--quote-cjk (str)
+  str
   )
 
 (defun pangu-spacing--quote (str)
+  (->> str
+       pangu-spacing--cjk-quote
+       pangu-spacing-quote-cjk
+       )
   )
+
 (defun pangu-spacing--hash (str)
+  str
   )
 (defun pangu-spacing--operator (str)
+  str
   )
 (defun pangu-spacing--brackets (str)
+  str
   )
 (defun pangu-spacing--symbol (str)
+  str
   )
 (defun pangu-spacing--ans (str)
+  str
   )
 
 (provide 'pangu-spacing)
