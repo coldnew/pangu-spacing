@@ -21,6 +21,40 @@
     )
   )
 
+(ert-deftest pangu-spacing-test/org-mode-special-region ()
+  (with-temp-buffer
+    (insert "* English中文English [[https://github.com/][link中文link]]
+   CLOSED: [2018-10-14日21:42]
+   - State \"DONE\"       from \"TODO\"       [2018-10-14日21:42]
+   [2018-09-17一]
+   English中文English
+* ~English中文English~
+   <2018-09-17一>
+   =/home/me/English中文English.conf=
+   #+BEGIN_SRC conf :tangle English中文English.conf
+     English中文English
+   #+END_SRC")
+    (message "1")
+    (pangu-spacing-mode 1)
+    (message "2")
+    (org-mode)
+    (message "3")
+    (let ((pangu-spacing-real-insert-separtor t))
+      (pangu-spacing-modify-buffer))
+    (message "4")
+    (should (string-equal (buffer-string)
+                          "* English 中文 English [[https://github.com/][link中文link]]
+   CLOSED: [2018-10-14日21:42]
+   - State \"DONE\"       from \"TODO\"       [2018-10-14日21:42]
+   [2018-09-17一]
+   English 中文 English
+* ~English中文English~
+   <2018-09-17一>
+   =/home/me/English中文English.conf=
+   #+BEGIN_SRC conf :tangle English中文English.conf
+     English中文English
+   #+END_SRC"))))
+
 (ert-deftest pangu-spacing-test/show ()
   "Test if showing works"
   (with-temp-buffer

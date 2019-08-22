@@ -222,10 +222,33 @@ pangu-sapce-mode."
   `(pangu-spacing-search-buffer ,regexp ,beg ,end
                                   (,func (match-beginning 1) (match-end 1))))
 
+(defun pangu-spacing-org-mode-at-special-region ()
+  (interactive)
+  (let ((element (org-element-at-point)))
+    (when (or (member (org-element-type element)
+                      '(src-block keyword example-block export-block
+                                  latex-environment planning))
+              (member (car (org-element-context element))
+                      '(inline-src-block timestamp link code verbatim)))
+      t)))
+
+(defcustom pangu-spacing-special-region-func-alist
+  '((org-mode . pangu-spacing-org-mode-at-special-region))
+  "Alist mapping major-mode to the corresponding function to
+  check for special region that shall not write real pangu-space"
+  :group 'pangu-spacing
+  :type '(alist :key-type (symbol)
+                :value-type (function)))
+
 (defun pangu-spacing-search-and-replace (match regexp)
   "Replace regexp with match in buffer."
-  (pangu-spacing-search-buffer regexp (point-min) (point-max)
-                                 (replace-match match nil nil)))
+  (let ((at-special-region-func
+         (cdr (assq major-mode pangu-spacing-special-region-func-alist))))
+    (pangu-spacing-search-buffer
+     regexp (point-min) (point-max)
+     (unless (and at-special-region-func
+                  (save-match-data (funcall at-special-region-func)))
+       (replace-match match nil nil)))))
 
 (defun pangu-spacing-overlay-p (ov)
   "Determine whether overlay OV was created by space-between."
