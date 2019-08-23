@@ -15,5 +15,7 @@ clean:
 %.elc: %.el
 	$(BATCH) --eval '(byte-compile-file "$<")'
 
+test:
+	$(BATCH) -L . -l test/pangu-spacing-test.el -f ert-run-tests-batch-and-exit
 
-.PHONY: check clean README.md
+.PHONY: check clean test README.md

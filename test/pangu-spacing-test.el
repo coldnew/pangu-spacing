@@ -1,5 +1,7 @@
 ;;; pangu-spacing-test.el --- Tests for pangu-spacing
 
+(require 'ert)
+(require 'pangu-spacing)
 
 (ert-deftest pangu-spacing-test/modify ()
   "Test if modify works"
