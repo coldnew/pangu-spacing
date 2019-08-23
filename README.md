@@ -1,3 +1,4 @@
+<a href="https://github.com/coldnew/pangu-spacing.el"><img src="https://www.gnu.org/software/emacs/images/emacs.png" alt="Normalize Logo" width="80" height="80" align="right"></a> 
 ## pangu-spacing.el
 *Minor-mode to add space between Chinese and English characters.*
 
@@ -5,7 +6,6 @@
 [![License GPLv3](https://img.shields.io/badge/license-GPL_v3-green.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
 [![MELPA](http://melpa.org/packages/pangu-spacing-badge.svg)](http://melpa.org/#/pangu-spacing)
 [![MELPA Stable](http://stable.melpa.org/packages/pangu-spacing-badge.svg)](http://stable.melpa.org/#/pangu-spacing)
-[![Stories in Ready](https://badge.waffle.io/coldnew/pangu-spacing.png?label=ready&title=Ready)](https://waffle.io/coldnew/pangu-spacing)
 
 ### Screenshot
 
@@ -31,9 +31,9 @@ will still see:
 
      你好，我是coldnew，我喜歡使用emacs。
 
-pangu-spacing is named from paranoid-auto-spacing's README.
+pangu-spacing is named from [pangu.js](https://github.com/vinta/pangu.js)'s README.
 
-     Translation of paranoid-auto-spacing's README [1]
+     Translation of pangu.js's README [1]
 
      If you are the one who feel quiet ill when see Chinese,
      English and digits characters squeezed together and
@@ -53,14 +53,14 @@ pangu-spacing is named from paranoid-auto-spacing's README.
 
      Let's go for it.
 
-     [1] https://github.com/gibuloto/paranoid-auto-spacing
+     [1] https://github.com/vinta/pangu.js
 
 ### Commentary (Chinese)
 
 
-pangu-spacing-mode 是一個可以自動幫你將中文與英文之間加上`空白`作為分隔的 minor-mode, 他的名稱來自於 paranoid-auto-spacing 上的 README。
+pangu-spacing-mode 是一個可以自動幫你將中文與英文之間加上`空白`作為分隔的 minor-mode, 他的名稱來自於 [pangu.js](https://github.com/vinta/pangu.js) 上的 README。
 
-     引述自 paranoid-auto-spacing README [1]
+     引述自 pangu.js README [1]
 
      如果你跟我一樣，每次看到網頁上的中文字和英文、數字、符號擠在一塊，就會
      坐立難安，忍不住想在它們之間加個空格。這個外掛（支援 Chrome 和 Firefox）
@@ -74,13 +74,7 @@ pangu-spacing-mode 是一個可以自動幫你將中文與英文之間加上`空
 
      與大家共勉之。
 
-     [1] https://github.com/gibuloto/paranoid-auto-spacing
-
-
-更完整的介紹，請見我的部若格:
-
-http://coldnew.github.io/blog/2013/05/20_5cbb7.html
-
+     [1] https://github.com/vinta/pangu.js
 
 ### Installation
 
@@ -129,7 +123,7 @@ this: (take org-mode as example)
 Helper macro to search buffer and do func according regexp for
 pangu-spacing-mode.
 
-#### `(pangu-spacing-search-overlay FUNC REGEXP)`
+#### `(pangu-spacing-search-overlay BEG END FUNC REGEXP)`
 
 Helper macro to search and update overlay according func and regexp for
 pangu-sapce-mode.
@@ -142,13 +136,13 @@ Replace regexp with match in buffer.
 
 Determine whether overlay OV was created by space-between.
 
-#### `(pangu-spacing-check-overlay)`
+#### `(pangu-spacing-check-overlay BEG END)`
 
-Insert a space between English words and Chinese characters in overlay.
+Insert a space between English words and Chinese charactors in overlay.
 
 #### `(pangu-spacing-modify-buffer)`
 
-Real insert separator between English words and Chinese characters in buffer.
+Real insert separator between English words and Chinese charactors in buffer.
 
 #### `(pangu-spacing-region-has-pangu-spacing-overlays BEG END)`
 
@@ -163,14 +157,15 @@ Allocate a pangu-spacing overlay in range.
 
 Delete all pangu-spacing-overlays in BUFFER.
 
-#### `(pangu-spacing-delete-all-overlays)`
+#### `(pangu-spacing-delete-all-overlays &optional BEG END)`
 
 Delete all pangu-spacing-overlays in BUFFER.
 
 #### `(pangu-spacing-space-current-buffer)`
 
-Space current buffer. It will really insert separator, no matter what
-`pangu-spacing-real-insert-separtor` is."
+Space current buffer.
+It will really insert separator, no matter what
+‘pangu-spacing-real-insert-separtor’ is.
 
 -----
 <div style="padding-top:15px;color: #d0d0d0;">
