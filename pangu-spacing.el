@@ -47,9 +47,9 @@
 ;;
 ;;      你好，我是coldnew，我喜歡使用emacs。
 
-;; pangu-spacing is named from paranoid-auto-spacing's README.
+;; pangu-spacing is named from [pangu.js](https://github.com/vinta/pangu.js)'s README.
 ;;
-;;      Translation of paranoid-auto-spacing's README [1]
+;;      Translation of pangu.js's README [1]
 ;;
 ;;      If you are the one who feel quiet ill when see Chinese,
 ;;      English and digits characters squeezed together and
@@ -69,14 +69,13 @@
 
 ;;      Let's go for it.
 
-;;      [1] https://github.com/gibuloto/paranoid-auto-spacing
+;;      [1] https://github.com/vinta/pangu.js
 
 ;;; Commentary (Chinese):
 
-;; pangu-spacing-mode 是一個可以自動幫你將中文與英文之間加上`空白'作為分
-;; 隔的 minor-mode, 他的名稱來自於 paranoid-auto-spacing 上的 README。
+;; pangu-spacing-mode 是一個可以自動幫你將中文與英文之間加上`空白'作為分隔的 minor-mode, 他的名稱來自於 [pangu.js](https://github.com/vinta/pangu.js) 上的 README。
 ;;
-;;      引述自 paranoid-auto-spacing README [1]
+;;      引述自 pangu.js README [1]
 ;;
 ;;      如果你跟我一樣，每次看到網頁上的中文字和英文、數字、符號擠在一塊，就會
 ;;      坐立難安，忍不住想在它們之間加個空格。這個外掛（支援 Chrome 和 Firefox）
@@ -90,13 +89,7 @@
 ;;
 ;;      與大家共勉之。
 
-;;      [1] https://github.com/gibuloto/paranoid-auto-spacing
-
-;;
-;; 更完整的介紹，請見我的部若格:
-;;
-;; http://coldnew.github.io/blog/2013/05/20_5cbb7.html
-;;
+;;      [1] https://github.com/vinta/pangu.js
 
 ;;; Installation:
 
