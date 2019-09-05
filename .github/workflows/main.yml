@@ -22,7 +22,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Setup Emacs
-      uses: emacs-php/github-actions-evm@master
+      uses: coldnew/setup-emacs@master
       with:
         version: ${{ matrix.emacs }}
     - name: Emacs version
