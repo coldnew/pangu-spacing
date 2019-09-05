@@ -13,6 +13,7 @@ jobs:
     
   build:
     needs: install_evm
+    runs-on: ubuntu-latest
     name: Build
     steps:
     - name: make
