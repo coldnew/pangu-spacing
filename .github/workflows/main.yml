@@ -1,0 +1,22 @@
+name: CI
+
+# Trigger the workflow on push or pull request
+on: [push, pull_request]
+
+jobs:
+  install_evm:
+    name: Install Evm
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install evm
+      run: curl -fsSkL https://raw.github.com/rejeep/evm/master/go | bash
+    
+  build:
+    needs: install_evm
+    name: Build
+    steps:
+    - uses: "make"
+      env:
+        EVM_EMACS: emacs-24.1-travis
+      run: |
+        make clean && make install
