@@ -25,4 +25,5 @@ jobs:
       uses: coldnew/setup-emacs@master
       with:
         emacs-version: ${{ matrix.emacs }}
-       - run: emacs --version
+      - run: emacs --version
+       
