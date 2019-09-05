@@ -20,4 +20,4 @@ jobs:
       env:
         EVM_EMACS: emacs-24.1-travis
       run: |
-        make clean && make install
+        make clean
