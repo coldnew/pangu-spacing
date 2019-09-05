@@ -15,7 +15,7 @@ jobs:
     needs: install_evm
     name: Build
     steps:
-    - uses: "make"
+    - name: make
       env:
         EVM_EMACS: emacs-24.1-travis
       run: |
