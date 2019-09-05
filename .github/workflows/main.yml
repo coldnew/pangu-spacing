@@ -19,5 +19,6 @@ jobs:
     - name: make
       env:
         EVM_EMACS: emacs-24.1-travis
+        PATH: "/home/runner/.evm/bin:$PATH"
       run: |
-        make 
+        ls ; echo pwd ; make 
