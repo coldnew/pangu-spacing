@@ -4,16 +4,26 @@ name: CI
 on: [push]
 
 jobs:
-  build:
+  run:
+    name: Run
     runs-on: ubuntu-16.04
     strategy:
       matrix:
-        emacs: ['emacs-24.1-travis', 'emacs-25.1-travis', 'emacs-26.2-travis']
-    name: Emacs ${{ matrix.emacs }} sample
+        emacs:
+          - 'emacs-24.1-travis'
+          - 'emacs-24.2-travis'
+          - 'emacs-24.3-travis'
+          - 'emacs-25.1-travis'
+          - 'emacs-25.2-travis'
+          - 'emacs-26.1-travis'
+          - 'emacs-26.2-travis'
+          - 'emacs-git-snapshot-travis'
+          - 'remacs-git-snapshot-travis'
     steps:
-      - uses: actions/checkout@master
-      - name: Setup Emacs
-        uses: emacs-php/github-actions-evm@master
-        with:
-          version: ${{ matrix.emacs }}
-      - run: emacs --version
+    - uses: actions/checkout@master
+    - name: Setup Emacs
+      uses: actions/setup-ruby@master
+      with:
+        version: ${{ matrix.emacs }}
+    - name: Emacs version
+      run: emacs --version
