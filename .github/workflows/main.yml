@@ -16,8 +16,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Build
     steps:
-    - name: make
+    - name: fetch
       uses: actions/checkout@v1
+    - name: make
       env:
         EVM_EMACS: emacs-24.1-travis
         PATH: "/home/runner/.evm/bin:$PATH"
