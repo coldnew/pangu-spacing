@@ -17,8 +17,9 @@ jobs:
     name: Build
     steps:
     - name: make
+      uses: actions/checkout@v1
       env:
         EVM_EMACS: emacs-24.1-travis
         PATH: "/home/runner/.evm/bin:$PATH"
       run: |
-        ls ; echo pwd ; make 
+        make 
