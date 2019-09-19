@@ -9,10 +9,6 @@ os:
   - linux
   - osx
 
-before_install:
-  - export PATH="$HOME/.cask/bin:$PATH"
-  - curl -fsSkL https://raw.github.com/cask/cask/master/go | python
-
 env:
   - EMACS_CI=emacs-24-4
   - EMACS_CI=emacs-24-5
@@ -28,9 +24,11 @@ matrix:
   allow_failures:
     - env: EMACS_CI=emacs-snapshot
 
+# The default "emacs" executable on the $PATH will now be the version named by $EMACS_CI
 install:
-  # The default "emacs" executable on the $PATH will now be the version named by $EMACS_CI
   - bash <(curl https://raw.githubusercontent.com/purcell/nix-emacs-ci/master/travis-install)
+  - export PATH="$HOME/.cask/bin:$PATH"
+  - curl -fsSkL https://raw.github.com/cask/cask/master/go | python
 
 script:
   - emacs --version
