@@ -7,7 +7,7 @@ language: nix
 
 os:
   - linux
-  - osx
+#  - osx
 
 env:
   - EMACS_CI=emacs-24-2
