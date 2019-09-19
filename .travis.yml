@@ -10,6 +10,8 @@ os:
   - osx
 
 env:
+  - EMACS_CI=emacs-24-2
+  - EMACS_CI=emacs-24-3
   - EMACS_CI=emacs-24-4
   - EMACS_CI=emacs-24-5
   - EMACS_CI=emacs-25-1
