@@ -1,9 +1,10 @@
-<a href="https://github.com/coldnew/pangu-spacing.el"><img src="https://www.gnu.org/software/emacs/images/emacs.png" alt="Normalize Logo" width="80" height="80" align="right"></a> 
+<a href="http://github.com/coldnew/pangu-spacing"><img src="https://www.gnu.org/software/emacs/images/emacs.png" alt="Emacs Logo" width="80" height="80" align="right"></a>
 ## pangu-spacing.el
 *Minor-mode to add space between Chinese and English characters.*
 
 ---
 [![License GPLv3](https://img.shields.io/badge/license-GPL_v3-green.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
+[![Build Status](https://travis-ci.org/coldnew/pangu-spacing.svg?branch=master)](https://travis-ci.org/coldnew/pangu-spacing)
 [![MELPA](http://melpa.org/packages/pangu-spacing-badge.svg)](http://melpa.org/#/pangu-spacing)
 [![MELPA Stable](http://stable.melpa.org/packages/pangu-spacing-badge.svg)](http://stable.melpa.org/#/pangu-spacing)
 
@@ -115,15 +116,36 @@ this: (take org-mode as example)
                 (set (make-local-variable 'pangu-spacing-real-insert-separtor) t)))
 
 
-### Function Documentation
 
 
-#### `(pangu-spacing-search-buffer REGEXP START END FUNC)`
+### Customization Documentation
+
+#### `pangu-spacing-separator`
+
+String to be display between Chinese and English.
+
+#### `pangu-spacing-real-insert-separtor`
+
+Set t or nil to make space show only on overlay or insert in file.
+When you set t here, the space will be insert when you save file.
+
+#### `pangu-spacing-inhibit-mode-alist`
+
+Inhibit mode alist for pangu-spacing-mode.
+
+#### `pangu-spacing-special-region-func-alist`
+
+Alist mapping major-mode to the corresponding function to
+  check for special region that shall not write real pangu-space
+
+### Function and Macro Documentation
+
+#### `(pangu-spacing-search-buffer REGEXP START END FUNC)` (macro)
 
 Helper macro to search buffer and do func according regexp for
 pangu-spacing-mode.
 
-#### `(pangu-spacing-search-overlay BEG END FUNC REGEXP)`
+#### `(pangu-spacing-search-overlay BEG END FUNC REGEXP)` (macro)
 
 Helper macro to search and update overlay according func and regexp for
 pangu-sapce-mode.
@@ -165,7 +187,7 @@ Delete all pangu-spacing-overlays in BUFFER.
 
 Space current buffer.
 It will really insert separator, no matter what
-‘pangu-spacing-real-insert-separtor’ is.
+`pangu-spacing-real-insert-separtor` is.
 
 -----
 <div style="padding-top:15px;color: #d0d0d0;">
