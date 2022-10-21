@@ -6,6 +6,7 @@
 ;; Kyewords: converience
 ;; Version: 0.4
 ;; X-URL: http://github.com/coldnew/pangu-spacing
+;; URL: http://github.com/coldnew/pangu-spacing
 
 ;; This file is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -22,8 +23,6 @@
 
 
 ;;; Commentary:
-;; [![MELPA](http://melpa.org/packages/pangu-spacing-badge.svg)](http://melpa.org/#/pangu-spacing)
-;; [![MELPA Stable](http://stable.melpa.org/packages/pangu-spacing-badge.svg)](http://stable.melpa.org/#/pangu-spacing)
 
 ;;; Screenshot:
 ;; ![Screenshot](https://github.com/coldnew/pangu-spacing/raw/master/screenshot/screenshot.gif)
