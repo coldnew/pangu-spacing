@@ -4,7 +4,7 @@
 
 ---
 [![License GPLv3](https://img.shields.io/badge/license-GPL_v3-green.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
-[![Build Status](https://travis-ci.org/coldnew/pangu-spacing.svg?branch=master)](https://travis-ci.org/coldnew/pangu-spacing)
+[![Build Status](https://github.com/coldnew/pangu-spacing/workflows/CI/badge.svg)](https://github.com/coldnew/pangu-spacing/actions)
 [![MELPA](http://melpa.org/packages/pangu-spacing-badge.svg)](http://melpa.org/#/pangu-spacing)
 [![MELPA Stable](http://stable.melpa.org/packages/pangu-spacing-badge.svg)](http://stable.melpa.org/#/pangu-spacing)
 

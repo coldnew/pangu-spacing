@@ -215,13 +215,13 @@ pangu-sapce-mode."
                                   (,func (match-beginning 1) (match-end 1))))
 
 (defun pangu-spacing-org-mode-at-special-region ()
-  (interactive)
+  "Helper function to detect if current region is `org-mode' element block."
   (let ((element (org-element-at-point)))
     (when (or (member (org-element-type element)
-                      '(src-block keyword example-block export-block
+		      '(src-block keyword example-block export-block
                                   latex-environment planning))
-              (member (car (org-element-context element))
-                      '(inline-src-block timestamp link code verbatim)))
+	      (member (car (org-element-context element))
+		      '(inline-src-block timestamp link code verbatim)))
       t)))
 
 (defcustom pangu-spacing-special-region-func-alist
