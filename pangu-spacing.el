@@ -168,6 +168,7 @@ When you set t here, the space will be insert when you save file."
 ;;
 ;; Url: http://lists.gnu.org/archive/html/emacs-diffs/2014-01/msg00049.html
 ;;
+(eval-when-compile (require 'rx))
 (defun pangu-spacing-chinese-two-byte-category ()
   "Return the correct category name for Chinese two-byte characters."
   (if (assq 'chinese-two-byte rx--categories)
