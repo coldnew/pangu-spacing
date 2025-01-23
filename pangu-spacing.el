@@ -29,19 +29,19 @@
 
 ;;; Commentary (English):
 ;; pangu-spacing-mode is an minor-mode to auto add `space' between Chinese
-;; and English characters. Note that these white-space characters are not really
-;; added to the contents, it just like to do so.
+;; and English characters. Note that these whitespace characters are not really
+;; added to your file. It's just a local visual change.
 
 ;; Take following sentance for example:
 ;;
 ;;      你好，我是coldnew，我喜歡使用emacs。
 ;;
-;; After you use pangu-spacing-mdoe, you will see
+;; After you use pangu-spacing-mode, you will see
 ;;
 ;;      你好，我是 coldnew，我喜歡使用 emacs。
 ;;
-;; But the text doesn't be modify by this mode, after disable
-;; pangu-spacing-mode or use other text eidtor to open the file, you
+;; But the text doesn't get modified by this mode. After disabling
+;; pangu-spacing-mode, or when using another text editor to open the file, you
 ;; will still see:
 ;;
 ;;      你好，我是coldnew，我喜歡使用emacs。
@@ -52,18 +52,18 @@
 ;;
 ;;      If you are the one who feel quiet ill when see Chinese,
 ;;      English and digits characters squeezed together and
-;;      want to add whitespace to separate them. This plugin (support
+;;      want to add whitespace to separate them, this plugin (support
 ;;      Chrome and Firefox) is what you need when surfing the
-;;      internet, it will add whitespace between Chinese,
+;;      internet. It will add whitespace between Chinese,
 ;;      half-width English, digits and symbols automatically.
 
 ;;      These spaces between English and Chinese characters are called
-;;      pangu-spacing by sinologist, since it separate the cobnfusion
+;;      pangu-spacing by a sinologist, since it breaks the confusion
 ;;      between full-width and half-width characters.
-;;      Studies showed that who dislike to add whitespace between
-;;      English and Chinese characters also have relationship problem.
+;;      Studies showed that people who dislike adding whitespace between
+;;      English and Chinese characters also have relationship problems.
 ;;      Almost 70 percent of them will get married to the one they
-;;      don't love, the rest only can left the heritage to their cat.
+;;      don't love, the rest are only left to their cat.
 ;;      Indeed, love and writing need some space in good time.
 
 ;;      Let's go for it.
@@ -111,15 +111,15 @@
 ;;      (require 'pangu-spacing)
 ;;      (global-pangu-spacing-mode 1)
 ;;
-;; pangu-spacing-mode do not really insert space between English and
-;; Chinese by defaut, you should enable this option manually.
+;; pangu-spacing-mode does not actuall yinsert space between English and
+;; Chinese by default. If you want this behaviour, enable this option manually.
 ;;
 ;;      (setq pangu-spacing-real-insert-separtor t)
 ;;
-;; After you enable this, space will be inserted before you save file.
+;; After enabling this, pangu-space will be inserted before you save file.
 ;;
-;; If you only want to insert whitespace in some specific mode, but just add
-;; virtual space in other mode, you can use following code to achive
+;; If you only want to insert whitespace in some specific mode, but add
+;; virtual space in another mode, you can use following code to achieve
 ;; this: (take org-mode as example)
 ;;
 ;;      (add-hook 'org-mode-hook
@@ -137,7 +137,7 @@
 ;;;; Custom Variables
 
 (defcustom pangu-spacing-separator " "
-  "String to be display between Chinese and English."
+  "String to be displayed between Chinese and English."
   :group 'pangu-spacing
   :type 'string
   :initialize 'custom-initialize-default)
@@ -248,7 +248,7 @@ pangu-sapce-mode."
 
 
 (defun pangu-spacing-check-overlay (beg end)
-  "Insert a space between English words and Chinese charactors in overlay."
+  "Insert a space between English words and Chinese characters in overlay."
   (setq beg (if beg
                 (max (- beg 1) (point-min))
               (point-min))
@@ -261,7 +261,7 @@ pangu-sapce-mode."
   )
 
 (defun pangu-spacing-modify-buffer ()
-  "Real insert separator between English words and Chinese charactors in buffer."
+  "Real insert separator between English words and Chinese characters in buffer."
   (when pangu-spacing-real-insert-separtor
     (pangu-spacing-search-and-replace "\\1 \\2"
                                       pangu-spacing-include-regexp))
