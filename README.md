@@ -18,16 +18,16 @@ pangu-spacing-mode is an minor-mode to auto add `space` between Chinese
 and English characters. Note that these white-space characters are not really
 added to the contents, it just like to do so.
 
-Take following sentance for example:
+Take the following sentence for example:
 
      你好，我是coldnew，我喜歡使用emacs。
 
-After you use pangu-spacing-mdoe, you will see
+After you use pangu-spacing-mode, you will see
 
      你好，我是 coldnew，我喜歡使用 emacs。
 
-But the text doesn't be modify by this mode, after disable
-pangu-spacing-mode or use other text eidtor to open the file, you
+But the text doesn't get modified by this mode. After disabling
+pangu-spacing-mode or use other text editor to open the file, you
 will still see:
 
      你好，我是coldnew，我喜歡使用emacs。
@@ -101,14 +101,14 @@ In your .emacs
      (global-pangu-spacing-mode 1)
 
 pangu-spacing-mode do not really insert space between English and
-Chinese by defaut, you should enable this option manually.
+Chinese by default, you should enable this option manually.
 
      (setq pangu-spacing-real-insert-separtor t)
 
 After you enable this, space will be inserted before you save file.
 
 If you only want to insert whitespace in some specific mode, but just add
-virtual space in other mode, you can use following code to achive
+virtual space in other mode, you can use following code to achieve
 this: (take org-mode as example)
 
      (add-hook 'org-mode-hook
@@ -126,7 +126,7 @@ String to be display between Chinese and English.
 
 #### `pangu-spacing-real-insert-separtor`
 
-Set t or nil to make space show only on overlay or insert in file.
+Set t or nil to make the space show only on overlay or insert in file.
 When you set t here, the space will be insert when you save file.
 
 #### `pangu-spacing-inhibit-mode-alist`
@@ -160,11 +160,11 @@ Determine whether overlay OV was created by space-between.
 
 #### `(pangu-spacing-check-overlay BEG END)`
 
-Insert a space between English words and Chinese charactors in overlay.
+Insert a space between English words and Chinese characters in overlay.
 
 #### `(pangu-spacing-modify-buffer)`
 
-Real insert separator between English words and Chinese charactors in buffer.
+Real insert separator between English words and Chinese characters in buffer.
 
 #### `(pangu-spacing-region-has-pangu-spacing-overlays BEG END)`
 
