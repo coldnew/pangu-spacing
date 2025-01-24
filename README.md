@@ -86,9 +86,11 @@ If you have `melpa` and `emacs24` installed, simply type:
 
 For `cask` user, just add following lines in your `Cask` file
 
-     (source melpa)
+```elisp
+(source melpa)
 
-     (depends-on "pangu-spacing")
+(depends-on "pangu-spacing")
+```
 
 
 ### Configuration
@@ -96,13 +98,17 @@ For `cask` user, just add following lines in your `Cask` file
 
 In your .emacs
 
-     (require 'pangu-spacing)
-     (global-pangu-spacing-mode 1)
+```elisp
+(require 'pangu-spacing)
+(global-pangu-spacing-mode 1)
+```
 
 pangu-spacing-mode does not actuall yinsert space between English and
 Chinese by default. If you want this behaviour, enable this option manually.
 
-     (setq pangu-spacing-real-insert-separtor t)
+```elisp
+(setq pangu-spacing-real-insert-separtor t)
+```
 
 After enabling this, pangu-space will be inserted before you save file.
 
@@ -110,9 +116,11 @@ If you only want to insert whitespace in some specific mode, but add
 virtual space in another mode, you can use following code to achieve
 this: (take org-mode as example)
 
-     (add-hook 'org-mode-hook
-               '(lambda ()
-                (set (make-local-variable 'pangu-spacing-real-insert-separtor) t)))
+```elisp
+(add-hook 'org-mode-hook
+          '(lambda ()
+             (set (make-local-variable 'pangu-spacing-real-insert-separtor) t)))
+```
 
 
 
