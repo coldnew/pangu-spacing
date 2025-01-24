@@ -167,19 +167,26 @@ When you set t here, the space will be insert when you save file."
 ;;   [Emacs-diffs] trunk r115873: Fix misspelling of 'chinese' in rx.
 ;;
 ;; Url: http://lists.gnu.org/archive/html/emacs-diffs/2014-01/msg00049.html
+;;
+(eval-when-compile (require 'rx))
+(defun pangu-spacing-chinese-two-byte-category ()
+  "Return the correct category name for Chinese two-byte characters."
+  (if (assq 'chinese-two-byte rx--categories)
+      "chinese-two-byte"
+    "chinse-two-byte"))
 
 (defvar pangu-spacing-include-regexp
   ;; we didn't add korean because korean-hangul-two-byte is not implemented
-  (rx (or (and (or (group-n 3 (any "。，！？；：「」（）、"))
-                   (group-n 1 (or (category chinse-two-byte)
-                                  (category japanese-hiragana-two-byte)
-                                  (category japanese-katakana-two-byte))))
-               (group-n 2 (in "a-zA-Z0-9")))
-          (and (group-n 1 (in "a-zA-Z0-9"))
-               (or (group-n 3 (any "。，！？；：「」（）、"))
-                   (group-n 2 (or (category chinse-two-byte)
-                                  (category japanese-hiragana-two-byte)
-                                  (category japanese-katakana-two-byte)))))))
+  (eval `(rx (or (and (or (group-n 3 (any "。，！？；：「」（）、"))
+                          (group-n 1 (or (category ,(intern (pangu-spacing-chinese-two-byte-category)))
+                                         (category japanese-hiragana-two-byte)
+                                         (category japanese-katakana-two-byte))))
+                      (group-n 2 (in "a-zA-Z0-9")))
+                 (and (group-n 1 (in "a-zA-Z0-9"))
+                      (or (group-n 3 (any "。，！？；：「」（）、"))
+                          (group-n 2 (or (category ,(intern (pangu-spacing-chinese-two-byte-category)))
+                                         (category japanese-hiragana-two-byte)
+                                         (category japanese-katakana-two-byte))))))))
   "Regexp to find Chinese character before English character.
 
 Group 1 contains the character before the potential pangu
