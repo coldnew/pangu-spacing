@@ -45,11 +45,11 @@
     (should (string-equal (buffer-string)
                           "* English 中文 English [[https://github.com/][link中文link]]
    CLOSED: [2018-10-14日21:42]
-   - State \"DONE\"       from \"TODO\"       [2018-10-14日21:42]
-   [2018-09-17一]
+   - State \"DONE\"       from \"TODO\"       [2018-10-14 日21:42]
+   [2018-09-17 一]
    English 中文 English
 * ~English中文English~
-   <2018-09-17一>
+   <2018-09-17 一>
    =/home/me/English中文English.conf=
    #+BEGIN_SRC conf :tangle English中文English.conf
      English中文English
